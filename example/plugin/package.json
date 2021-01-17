@@ -1,0 +1,9 @@
+{
+  "main": "dist/main.js",
+  "devDependencies": {
+    "react": "^16.8"
+  },
+  "peerDependencies": {
+    "react": "^16.8"
+  }
+}

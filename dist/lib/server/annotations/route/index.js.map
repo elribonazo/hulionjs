@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../lib/server/annotations/route/index.ts"],"names":[],"mappings":";AAAA;;;;GAIG;;;AAIH,SAAgB,UAAU,CAAC,UAA+B;IACtD,OAAO,SAAS,SAAS,CAAC,MAAW;QACjC,IAAI,CAAC,MAAM,CAAC,WAAW,EAAE;YACrB,MAAM,CAAC,WAAW,GAAG,EAAE,CAAC;SAC3B;QACD,MAAM,CAAC,WAAW,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC;IACxC,CAAC,CAAC;AACN,CAAC;AAPD,gCAOC"}
