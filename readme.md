@@ -1,39 +1,20 @@
-# hulionjs
+# HULIONJS
 
-SMW-Project is a framework with its own cli which enables high performing api's and an extraction layer for react and server side rendering.
+hulionjs is a framework with its own cli which enables high performing api's and an extraction layer for react and server side rendering.
 
-## Installation
+## Introduction
 
-Use npm to install the package.
+Hulion is a nodejs framework to build insanely fast and robust api's with enabled react ui and ssr.
+You should not yet be used on any project, it is in Alpha stage and not yet ready for production.
 
-```bash
-npm i hulionjs --save
-```
+## Express
 
-Use yarn to install the package.
+The most used http framework in the nodejs ecosystem and also used in this project. Hulion focuses here on making the development experience faster, easier and also on delivering a robust and highly performance backend with enterprise features.
 
-```bash
-yarn add hulionjs
-```
+* Native support for Redis Clusters
+* Native support for MongoDB
+* Native support for React SSR & Suspense (async render)
 
-## Usage
+## React
 
-```
-npx smw-cli [command]
-```
-
-### Commands
-
-#### help
-
-Prints the output of all the available commands and options
-
-## Soon
-1. Adding more features to Server lib
-2. Adding documentation
-3. Adding custom ssr rendering
-
-## Contributors
-This project is mantained by [ribo](https://github.com/elribonazo) and [turrione](https://github.com/turrione).
-
-Feel free to contact us for support or any concern.
+The framework contains a react rendering engine built-in which can let any developer start working with react and universal rendering in few steps.

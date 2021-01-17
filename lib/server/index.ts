@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express, Router, Request } from 'express';
 import compression from 'compression';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -9,13 +9,18 @@ import httpStatus from 'http-status';
 import cors from 'cors';
 
 import { wrapper } from './routing';
+import {
+    ServerHookInterface,
+    ServerOptionsInterface,
+    ServerOptionsConfigInterface
+} from '../interfaces';
 
-const server = express();
-const hooks: any = {};
-const options: any = { config: {} };
-const router: any = express.Router();
+const server: Express = express();
+const hooks: ServerHookInterface = {};
+const options: ServerOptionsInterface = { config: {} };
+const router: any = Router();
 
-export async function setHook(name: any, func: any) {
+export async function setHook(name: string, func: Function) {
     try {
         hooks[name] = func;
         return Promise.resolve();
@@ -24,7 +29,7 @@ export async function setHook(name: any, func: any) {
     }
 }
 
-export function setConfig(config: any = {}) {
+export function setConfig(config: ServerOptionsConfigInterface = {}) {
     Object.keys(config).forEach((key) => {
         options.config[key] = config[key];
     });
@@ -37,9 +42,10 @@ export async function loadMiddlewares() {
         }
 
         server.use(
-            cors((req: any, callback: any) => {
+            cors((req: Request, callback: Function) => {
+                const enabledOrigins = options.config.WHITELIST ?? '';
                 callback(null, {
-                    origin: (options.config.WHITELIST ?? '').indexOf(req.header('Origin')) !== -1
+                    origin: enabledOrigins.indexOf(req.header('Origin')) !== -1
                 });
             })
         );
