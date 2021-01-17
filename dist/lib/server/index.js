@@ -17,6 +17,7 @@ const routing_1 = require("./routing");
 const server = express_1.default();
 const hooks = {};
 const options = { config: {} };
+const router = express_1.default.Router();
 async function setHook(name, func) {
     try {
         hooks[name] = func;
@@ -69,8 +70,7 @@ async function attachController(controller) {
             const safeUrl = url || ((_k = (_j = (_h = controller === null || controller === void 0 ? void 0 : controller.default) === null || _h === void 0 ? void 0 : _h.prototype) === null || _j === void 0 ? void 0 : _j[name]) === null || _k === void 0 ? void 0 : _k.url);
             const safeFn = fn || ((_m = (_l = controller === null || controller === void 0 ? void 0 : controller.default) === null || _l === void 0 ? void 0 : _l.prototype) === null || _m === void 0 ? void 0 : _m[name]);
             if (safeFn && safeUrl && safeMethod) {
-                server.use('/', express_1.default
-                    .Router()[safeMethod](!resource ? safeUrl : `/api${safeUrl}`, ...[
+                server.use('/', router[safeMethod](!resource ? safeUrl : `/api${safeUrl}`, ...[
                     ...globalMiddlewares,
                     ...middlewares,
                     (req, res, next) => routing_1.wrapper(safeFn, controller === null || controller === void 0 ? void 0 : controller.default, req, res, next)
@@ -79,14 +79,13 @@ async function attachController(controller) {
         });
     }
     else {
-        Object.values(controller).forEach(instance => {
+        Object.values(controller).forEach((instance) => {
             var _a, _b, _c, _d;
             const globalMiddlewares = ((_a = instance === null || instance === void 0 ? void 0 : instance.prototype) === null || _a === void 0 ? void 0 : _a.middlewares) || [];
             const middlewares = ((_c = (_b = instance === null || instance === void 0 ? void 0 : instance.prototype) === null || _b === void 0 ? void 0 : _b.response) === null || _c === void 0 ? void 0 : _c.middlewares) || [];
             const safeFn = (_d = instance === null || instance === void 0 ? void 0 : instance.prototype) === null || _d === void 0 ? void 0 : _d.response;
             if (instance.method && instance.url && safeFn) {
-                server.use('/', express_1.default
-                    .Router()[(instance === null || instance === void 0 ? void 0 : instance.method) || 'get'](`${instance.url}`, ...[
+                server.use('/', router[(instance === null || instance === void 0 ? void 0 : instance.method) || 'get'](`${instance.url}`, ...[
                     ...globalMiddlewares,
                     ...middlewares,
                     (req, res, next) => routing_1.wrapper(safeFn, instance, req, res, next)
@@ -138,12 +137,12 @@ async function listen(options) {
         try {
             await loadBeforeListen();
             const { port } = await getServerAddress(options);
-            server.listen(port, err => {
+            server.listen(port, (err = null) => {
                 if (err) {
                     return reject(err);
                 }
                 console.log(chalk_1.default.blue(`Running locally on port ${port}`));
-                return resolve();
+                return resolve(null);
             });
         }
         catch (err) {

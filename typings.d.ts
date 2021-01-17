@@ -12,3 +12,8 @@ declare module 'webpack-bundle-analyzer';
 declare module 'react-lazy-ssr/webpack';
 declare module '@furic-zhao/preload-webpack-plugin';
 declare module 'webpack-isomorphic-tools/plugin';
+declare module 'compression';
+declare module 'helmet';
+declare module 'morgan';
+declare module 'response-time';
+declare module 'cors';

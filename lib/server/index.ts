@@ -11,10 +11,11 @@ import cors from 'cors';
 import { wrapper } from './routing';
 
 const server = express();
-const hooks = {};
-const options = { config: {} };
+const hooks: any = {};
+const options: any = { config: {} };
+const router: any = express.Router();
 
-export async function setHook(name, func) {
+export async function setHook(name: any, func: any) {
     try {
         hooks[name] = func;
         return Promise.resolve();
@@ -23,7 +24,7 @@ export async function setHook(name, func) {
     }
 }
 
-export function setConfig(config = {}) {
+export function setConfig(config: any = {}) {
     Object.keys(config).forEach((key) => {
         options.config[key] = config[key];
     });
@@ -36,7 +37,7 @@ export async function loadMiddlewares() {
         }
 
         server.use(
-            cors((req, callback) => {
+            cors((req: any, callback: any) => {
                 callback(null, {
                     origin: (options.config.WHITELIST ?? '').indexOf(req.header('Origin')) !== -1
                 });
@@ -55,10 +56,10 @@ export async function loadMiddlewares() {
     }
 }
 
-export async function attachController(controller) {
+export async function attachController(controller: any) {
     if (controller?.default) {
         const routes = controller?.default?.routes || [];
-        routes.forEach(({ fn, method, name, url, resource }) => {
+        routes.forEach(({ fn, method, name, url, resource }: any) => {
             const globalMiddlewares = controller?.default?.middlewares || [];
             const middlewares =
                 controller?.default?.prototype?.[name]?.middlewares || [];
@@ -67,16 +68,16 @@ export async function attachController(controller) {
             const safeUrl = url || controller?.default?.prototype?.[name]?.url;
             const safeFn = fn || controller?.default?.prototype?.[name];
             if (safeFn && safeUrl && safeMethod) {
+
                 server.use(
                     '/',
-                    express
-                        .Router()
+                    router
                     [safeMethod](
                         !resource ? safeUrl : `/api${safeUrl}`,
                         ...[
                             ...globalMiddlewares,
                             ...middlewares,
-                            (req, res, next) =>
+                            (req: any, res: any, next: any) =>
                                 wrapper(safeFn, controller?.default, req, res, next)
                         ]
                     )
@@ -84,21 +85,20 @@ export async function attachController(controller) {
             }
         });
     } else {
-        Object.values(controller).forEach(instance => {
+        Object.values(controller).forEach((instance: any) => {
             const globalMiddlewares = instance?.prototype?.middlewares || [];
             const middlewares = instance?.prototype?.response?.middlewares || [];
             const safeFn = instance?.prototype?.response;
             if (instance.method && instance.url && safeFn) {
                 server.use(
                     '/',
-                    express
-                        .Router()
+                    router
                     [instance?.method || 'get'](
                         `${instance.url}`,
                         ...[
                             ...globalMiddlewares,
                             ...middlewares,
-                            (req, res, next) => wrapper(safeFn, instance, req, res, next)
+                            (req: any, res: any, next: any) => wrapper(safeFn, instance, req, res, next)
                         ]
                     )
                 );
@@ -113,13 +113,13 @@ export async function loadBeforeListen() {
     }
 
     server.use(
-        responseTime((_req, res, time) => {
+        responseTime((_req: any, res: any, time: any) => {
             res.setHeader('X-Response-Time', time.toFixed(2) + 'ms');
             res.setHeader('Server-Timing', `renderMiddleware;dur=${time}`);
         })
     );
 
-    server.use(async (err, _req, res, _next) => {
+    server.use(async (err: any, _req: any, res: any, _next: any) => {
         const response = {
             code: err.status,
             message: err.message || httpStatus[err.status],
@@ -142,7 +142,7 @@ export async function loadBeforeListen() {
 }
 
 
-export async function getServerAddress(options) {
+export async function getServerAddress(options: any) {
     try {
         return Promise.resolve({ hostname: options.host, port: options.port });
     } catch (err) {
@@ -150,19 +150,19 @@ export async function getServerAddress(options) {
     }
 }
 
-export async function listen(options) {
+export async function listen(options: any) {
     return new Promise(async (resolve, reject) => {
         try {
             await loadBeforeListen();
             const { port } = await getServerAddress(options);
 
-            server.listen(port, err => {
+            server.listen(port, (err: any = null) => {
                 if (err) {
                     return reject(err);
                 }
 
                 console.log(chalk.blue(`Running locally on port ${port}`));
-                return resolve();
+                return resolve(null);
             });
         } catch (err) {
             return reject(err);
