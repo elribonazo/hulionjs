@@ -1,10 +1,29 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.listen = exports.getServerAddress = exports.loadBeforeListen = exports.attachController = exports.loadMiddlewares = exports.setConfig = exports.setHook = void 0;
-const express_1 = __importDefault(require("express"));
+const express_1 = __importStar(require("express"));
 const compression_1 = __importDefault(require("compression"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
@@ -17,7 +36,7 @@ const routing_1 = require("./routing");
 const server = express_1.default();
 const hooks = {};
 const options = { config: {} };
-const router = express_1.default.Router();
+const router = express_1.Router();
 async function setHook(name, func) {
     try {
         hooks[name] = func;
@@ -41,8 +60,9 @@ async function loadMiddlewares() {
         }
         server.use(cors_1.default((req, callback) => {
             var _a;
+            const enabledOrigins = (_a = options.config.WHITELIST) !== null && _a !== void 0 ? _a : '';
             callback(null, {
-                origin: ((_a = options.config.WHITELIST) !== null && _a !== void 0 ? _a : '').indexOf(req.header('Origin')) !== -1
+                origin: enabledOrigins.indexOf(req.header('Origin')) !== -1
             });
         }));
         server.use(compression_1.default());

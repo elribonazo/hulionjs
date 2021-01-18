@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.start = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const compiler_1 = require("@smw-project/compiler");
+const compiler_1 = require("../compiler");
 async function start() {
     try {
         const [, , COMMAND, ...args] = process.argv;

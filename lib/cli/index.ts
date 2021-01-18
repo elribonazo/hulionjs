@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { Compiler, buildPluginConfig } from '@smw-project/compiler';
+import { Compiler, buildPluginConfig } from '../compiler';
 
 export async function start() {
     try {
+        const compiler = new Compiler()
         const [, , COMMAND, ...args] = process.argv;
         if (!COMMAND) throw new Error("No command");
 
@@ -34,7 +35,7 @@ export async function start() {
                 const webpackConfig = buildPluginConfig(PLUGINROOT, ROOT_OUTPUT);
                 console.log(JSON.stringify(webpackConfig));
 
-                await Compiler.compile({
+                await compiler.compile({
                     config: webpackConfig,
                     fromPlugin: true,
                     method: 'build'
