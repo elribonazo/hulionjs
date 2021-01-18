@@ -6,10 +6,6 @@ const {
     Method
 } = ServerAnnotations;
 
-interface ControllerInterface {
-    res: any;
-}
-
 
 
 @Route.resource('Pages')
