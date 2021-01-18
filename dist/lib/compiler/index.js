@@ -276,7 +276,7 @@ const buildPluginConfig = (PLUGIN_PATH, PLUGIN_PATH_OUTPUT = PLUGIN_PATH) => {
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
+                    test: /\.(js|jsx|ts|tsx)$/,
                     include: PLUGIN_PATH,
                     exclude: `${PLUGIN_PATH}/build`,
                     loader: 'babel-loader',

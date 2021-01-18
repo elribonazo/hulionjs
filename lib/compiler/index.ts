@@ -90,7 +90,7 @@ export const buildConfig = ({
                 rules: [
                     // ESLint
                     {
-                        test: /\.(js|jsx)$/,
+                        test: /\.(js|jsx|ts|tsx)$/,
                         enforce: 'pre',
                         use: [
                             {
@@ -194,7 +194,7 @@ export const buildConfig = ({
                     },
                     // Babel
                     {
-                        test: /\.(js|jsx)$/,
+                        test: /\.(js|jsx|ts|tsx)$/,
                         include: path.resolve(inputPath, "./"),
                         loader: 'babel-loader',
                         exclude: [
