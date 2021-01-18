@@ -13,7 +13,7 @@ const {
     console.log("All the routes have this");
     return next();
 })
-export default class Pages<ControllerInterface> {
+export default class Pages {
 
 
     @Method.middleware((req, res, next) => {
