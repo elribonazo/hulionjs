@@ -1,12 +1,12 @@
 {
   "name": "hulionjs",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "smw-cli": "bin/cli"
+    "hulion-cli": "bin/cli"
   },
   "scripts": {
     "cli": "node bin/cli",
