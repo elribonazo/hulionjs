@@ -37,11 +37,11 @@ const buildConfig = ({ inputPath, css }) => {
         const IS_PROD = envType === 'production';
         const cssFiles = (css === null || css === void 0 ? void 0 : css.includes) || [];
         const webpackIsomorphicToolsPlugin = new plugin_1.default(exports.isomorphicConfig);
-        return {
+        const webpackConfig = {
             context: path_1.default.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
-            devTool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
+            devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
@@ -255,6 +255,7 @@ const buildConfig = ({ inputPath, css }) => {
             },
             stats: 'none'
         };
+        return webpackConfig;
     };
 };
 exports.buildConfig = buildConfig;

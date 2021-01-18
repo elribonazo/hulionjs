@@ -13,6 +13,7 @@ async function start() {
         const [, , COMMAND, ...args] = process.argv;
         if (!COMMAND)
             throw new Error("No command");
+        const [ROOT, ...restArgs] = args;
         switch (COMMAND) {
             case 'help':
                 console.log("Commands:\r\n\r\nHelp\r\nStart\r\nBuild\r\nBuild-Plugin");
@@ -28,15 +29,27 @@ async function start() {
                  */
                 break;
             case 'build-plugin':
-                const [ROOT, ROOT_OUTPUT] = args;
+                const [ROOT_OUTPUT] = restArgs;
                 const PLUGINROOT = path_1.default.resolve(process.cwd(), ROOT || './');
                 if (!fs_1.default.existsSync(PLUGINROOT)) {
                     throw new Error(`The file ${PLUGINROOT} could not be found`);
                 }
-                const webpackConfig = compiler_1.buildPluginConfig(PLUGINROOT, ROOT_OUTPUT);
-                console.log(JSON.stringify(webpackConfig));
                 await compiler.compile({
-                    config: webpackConfig,
+                    config: compiler_1.buildPluginConfig(PLUGINROOT, ROOT_OUTPUT),
+                    fromPlugin: true,
+                    method: 'build'
+                });
+                break;
+            case 'build':
+                const [ENV] = restArgs;
+                const WEBROOT = path_1.default.resolve(process.cwd(), ROOT || './');
+                if (!fs_1.default.existsSync(WEBROOT)) {
+                    throw new Error(`The file ${WEBROOT} could not be found`);
+                }
+                await compiler.compile({
+                    config: compiler_1.buildConfig({
+                        inputPath: WEBROOT
+                    })(ENV),
                     fromPlugin: true,
                     method: 'build'
                 });

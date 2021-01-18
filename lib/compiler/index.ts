@@ -25,7 +25,7 @@ interface buildConfigCssType {
 
 interface buildConfigType {
     inputPath: string,
-    css: buildConfigCssType
+    css?: buildConfigCssType
 }
 
 interface CompilerCompileType {
@@ -51,7 +51,7 @@ export const buildConfig = ({
     css
 }: buildConfigType) => {
 
-    return (envType: string) => {
+    return (envType: "production" | "development" | "none" | undefined) => {
         const IS_DEV = envType !== 'production';
         const IS_PROD = envType === 'production';
         const cssFiles = css?.includes || [];
@@ -59,11 +59,11 @@ export const buildConfig = ({
             isomorphicConfig
         );
 
-        return {
+        const webpackConfig: any = {
             context: path.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
-            devTool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
+            devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
@@ -277,6 +277,8 @@ export const buildConfig = ({
             },
             stats: 'none'
         }
+
+        return webpackConfig;
     }
 }
 

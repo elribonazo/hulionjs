@@ -1,10 +1,7 @@
 
 import * as ServerAnnotations from '../../../lib/server/annotations';
 
-const {
-    Route,
-    Method
-} = ServerAnnotations;
+const { Route, Method } = ServerAnnotations;
 
 
 
@@ -14,7 +11,6 @@ const {
     return next();
 })
 export default class Pages {
-
 
     @Method.middleware((req, res, next) => {
         console.log("Only the get method has this");

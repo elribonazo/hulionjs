@@ -32,6 +32,12 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const chalk_1 = __importDefault(require("chalk"));
 const http_status_1 = __importDefault(require("http-status"));
 const cors_1 = __importDefault(require("cors"));
+const webpack_dev_middleware_1 = __importDefault(require("webpack-dev-middleware"));
+const webpack_hot_middleware_1 = __importDefault(require("webpack-hot-middleware"));
+const webpack_1 = __importDefault(require("webpack"));
+const path_1 = __importDefault(require("path"));
+const compiler_1 = require("../compiler");
+const engine_1 = __importDefault(require("./render/engine"));
 const routing_1 = require("./routing");
 const server = express_1.default();
 const hooks = {};
@@ -55,16 +61,51 @@ function setConfig(config = {}) {
 exports.setConfig = setConfig;
 async function loadMiddlewares() {
     try {
+        const { config: { WHITELIST = '', ENV, useReact = true, PUBLIC_URL } } = options;
         if (hooks.beforeAppMiddlewares) {
             await hooks.beforeAppMiddlewares(server);
         }
         server.use(cors_1.default((req, callback) => {
-            var _a;
-            const enabledOrigins = (_a = options.config.WHITELIST) !== null && _a !== void 0 ? _a : '';
+            const enabledOrigins = WHITELIST !== null && WHITELIST !== void 0 ? WHITELIST : '';
             callback(null, {
                 origin: enabledOrigins.indexOf(req.header('Origin')) !== -1
             });
         }));
+        if (useReact && ENV === 'local') {
+            /**
+             * Customize the webpack build with specific parameters
+             * or in a config file later on
+             */
+            const webpackConfigBuilder = compiler_1.buildConfig({
+                inputPath: process.cwd() + "/example/server"
+            });
+            const webpackConfig = webpackConfigBuilder(ENV);
+            const webpackCompiler = webpack_1.default(webpackConfig);
+            server.use(webpack_dev_middleware_1.default(webpackCompiler, {
+                hot: true,
+                publicPath: webpackConfig.output.publicPath,
+                index: 'main.html',
+                noInfo: true,
+                stats: false
+            }));
+            server.use(webpack_hot_middleware_1.default(webpackCompiler, {
+                path: '/__webpack_hmr',
+                heartbeat: 4000
+            }));
+            server.engine('html', engine_1.default);
+            server.set('view engine', 'html');
+            server.set('views', path_1.default.resolve(process.cwd(), './build'));
+            server.get(/\/(?!($|index\.html))/, express_1.default.static(path_1.default.resolve(process.cwd(), './build'), {
+                maxAge: '1y',
+                index: false
+            }));
+            // Serve static assets in /public
+            const staticCache = {
+                maxage: '30 days',
+                index: false
+            };
+            server.use(PUBLIC_URL, express_1.default.static(path_1.default.resolve(process.cwd(), './public'), staticCache));
+        }
         server.use(compression_1.default());
         server.use(helmet_1.default());
         server.use(body_parser_1.default.json());

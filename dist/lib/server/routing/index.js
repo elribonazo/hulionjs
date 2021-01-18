@@ -2,14 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wrapper = void 0;
 function wrapper(fn, context, req, res, next) {
-    fn.bind({
-        ...context,
-        getCurrentStatus: () => res.statusCode,
-        setCurrentStatus: (statusCode) => res.status(statusCode),
-        next: next,
-        req: req,
-        res: res
-    })(req, res, next).then((data) => {
+    fn.bind(context)(req, res, next).then((data) => {
         var _a, _b, _c, _d;
         try {
             if (!res.finished) {
