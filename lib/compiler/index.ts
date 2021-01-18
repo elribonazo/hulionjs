@@ -67,11 +67,11 @@ export const buildConfig = ({
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path.resolve(inputPath, './ui/browser.js')
+                    path.resolve(inputPath, './ui/browser.ts')
                 ]
                 : {
-                    polyfills: path.resolve(inputPath, './ui/polyfills.js'),
-                    main: path.resolve(inputPath, './ui/browser.js')
+                    polyfills: path.resolve(inputPath, './ui/polyfills.ts'),
+                    main: path.resolve(inputPath, './ui/browser.ts')
                 },
             output: IS_DEV
                 ? {
@@ -103,7 +103,6 @@ export const buildConfig = ({
                         include: path.resolve(inputPath, "./"),
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
-                            path.resolve(inputPath, "./node_modules/@smw-project/core")
                         ]
                     },
                     {
@@ -199,7 +198,6 @@ export const buildConfig = ({
                         loader: 'babel-loader',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
-                            path.resolve(inputPath, "./node_modules/@smw-project/core")
                         ],
                         options: {
                             cacheDirectory: IS_DEV,

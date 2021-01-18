@@ -68,7 +68,7 @@ const buildConfig = ({ inputPath, css }) => {
                 rules: [
                     // ESLint
                     {
-                        test: /\.(js|jsx)$/,
+                        test: /\.(js|jsx|ts|tsx)$/,
                         enforce: 'pre',
                         use: [
                             {
@@ -172,7 +172,7 @@ const buildConfig = ({ inputPath, css }) => {
                     },
                     // Babel
                     {
-                        test: /\.(js|jsx)$/,
+                        test: /\.(js|jsx|ts|tsx)$/,
                         include: path_1.default.resolve(inputPath, "./"),
                         loader: 'babel-loader',
                         exclude: [
