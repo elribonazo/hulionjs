@@ -74,7 +74,6 @@ export async function attachController(controller: any) {
             const safeUrl = url || controller?.default?.prototype?.[name]?.url;
             const safeFn = fn || controller?.default?.prototype?.[name];
             if (safeFn && safeUrl && safeMethod) {
-
                 server.use(
                     '/',
                     router

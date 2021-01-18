@@ -2,12 +2,16 @@
  * Method middlewares
  * @param {*} middleware 
  */
-import { MiddlewareInterface } from '../../../interfaces';
+import { ServerMiddleware } from '../../../interfaces';
 
-export function middleware(middleware: MiddlewareInterface) {
+export function middleware(middleware: ServerMiddleware) {
     return function (target: any, key: any, descriptor: any) {
-        if (!descriptor.value.middlewares) descriptor.value.middlewares = [];
+
+        if (!descriptor.value.middlewares) {
+            descriptor.value.middlewares = [];
+        }
         descriptor.value.middlewares.push(middleware);
+
         return descriptor;
     };
 }

@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug example",
+            "type": "node",
+            "request": "launch",
+            "args": [
+                "${workspaceFolder}/example/server/index.ts",
+                "--watch"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+        }
+    ]
+}

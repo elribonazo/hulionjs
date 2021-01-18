@@ -1,7 +1,11 @@
 import { RequestHandler } from "express";
 
-export interface MiddlewareInterface extends Array<RequestHandler> { };
+import { Request, Response, NextFunction } from 'express';
 
+
+export interface ServerMiddleware {
+    (req: Response, res: Response, next: NextFunction): any
+}
 export interface ServerHookInterface {
     [name: string]: Function
 }

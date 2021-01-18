@@ -1,5 +1,5 @@
 
-import { Server } from '@smw-project/module';
+import { Server } from '../..';
 
 import * as config from './config';
 import * as DefaultController from './controllers/default';

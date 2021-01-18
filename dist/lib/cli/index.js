@@ -9,6 +9,7 @@ const path_1 = __importDefault(require("path"));
 const compiler_1 = require("../compiler");
 async function start() {
     try {
+        const compiler = new compiler_1.Compiler();
         const [, , COMMAND, ...args] = process.argv;
         if (!COMMAND)
             throw new Error("No command");
@@ -34,7 +35,7 @@ async function start() {
                 }
                 const webpackConfig = compiler_1.buildPluginConfig(PLUGINROOT, ROOT_OUTPUT);
                 console.log(JSON.stringify(webpackConfig));
-                await compiler_1.Compiler.compile({
+                await compiler.compile({
                     config: webpackConfig,
                     fromPlugin: true,
                     method: 'build'
