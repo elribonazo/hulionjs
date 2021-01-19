@@ -82,18 +82,14 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                             }
                         ],
                         include: path_1.default.resolve(inputPath, './'),
-                        exclude: [
-                            path_1.default.resolve(inputPath, "./node_modules"),
-                        ]
+                        exclude: []
                     },
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
                         include: path_1.default.resolve(inputPath, './'),
                         loader: 'babel-loader',
-                        exclude: [
-                            path_1.default.resolve(inputPath, "./node_modules"),
-                        ],
+                        exclude: [],
                         options: {
                             cacheDirectory: IS_DEV,
                             compact: IS_PROD,
@@ -123,7 +119,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path_1.default.resolve(inputPath, './'),
+                            path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -149,7 +145,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     {
                         test: /\.(css)$/,
                         include: [
-                            path_1.default.resolve(inputPath, './'),
+                            path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -241,10 +237,26 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     inject: false,
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
-                        return require('fs')
-                            .readFileSync("../../../index.html")
-                            .toString()
-                            .replace(/\[\[SMW_WEBPACK_HEAD\]\]/gim, htmlWebpackPlugin.tags.headTags);
+                        return `<!doctype html>
+                        <html lang="en" [[HULIONJS_HTML_ATTRS]]>
+                        <head>
+                            <meta charset="utf-8">
+                            <base href="/">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+                            [[HULIONJS_HEAD]]
+                            [[HULIONJS_WEBPACK_HEAD]]
+                            <style>
+                                #root {
+                                    background-color: white !important;
+                                }
+                            </style>
+                        </head>
+                        <body[[HULIONJS_BODY_ATTRS]]>
+                            <div id="root">[[HULIONJS_MARKUP]]</div>
+                            [[HULIONJS_SCRIPTS]]
+                            </body>
+                        </html>`
+                            .replace(/\[\[HULIONJS_WEBPACK_HEAD\]\]/gim, htmlWebpackPlugin.tags.headTags);
                     }
                 }),
                 new preload_webpack_plugin_1.default({

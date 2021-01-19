@@ -111,9 +111,10 @@ export const buildConfig = ({
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path.resolve(inputPath, './'),
+                        include: path.resolve(inputPath, './ui'),
                         loader: 'babel-loader',
                         exclude: [
+                            path.resolve(inputPath, './node_modules')
                         ],
                         options: {
                             cacheDirectory: IS_DEV,
