@@ -1,6 +1,6 @@
 {
   "name": "hulionjs",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",
@@ -93,6 +93,7 @@
     "html-webpack-plugin": "^4.3.0",
     "http-status": "^1.4.2",
     "husky": "^3.0.5",
+    "image-webp-loader": "^1.2.1",
     "import-glob-loader": "^1.1.0",
     "isomorphic-unfetch": "^3.0.0",
     "jest": "^24.9.0",

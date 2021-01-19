@@ -45,11 +45,11 @@ const buildConfig = ({ inputPath, css }) => {
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path_1.default.resolve(inputPath, './ui/browser.ts')
+                    path_1.default.resolve(inputPath, './ui/browser.js')
                 ]
                 : {
                     polyfills: path_1.default.resolve(inputPath, './ui/polyfills.ts'),
-                    main: path_1.default.resolve(inputPath, './ui/browser.ts')
+                    main: path_1.default.resolve(inputPath, './ui/browser.js')
                 },
             output: IS_DEV
                 ? {

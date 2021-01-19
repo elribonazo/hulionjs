@@ -47,9 +47,7 @@ async function start() {
                     throw new Error(`The file ${WEBROOT} could not be found`);
                 }
                 await compiler.compile({
-                    config: compiler_1.buildConfig({
-                        inputPath: WEBROOT
-                    })(ENV),
+                    config: compiler_1.buildConfig({ inputPath: WEBROOT })(ENV),
                     method: 'build'
                 });
                 break;
