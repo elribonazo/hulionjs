@@ -81,7 +81,7 @@ const buildConfig = ({ inputPath, css }) => {
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -89,7 +89,7 @@ const buildConfig = ({ inputPath, css }) => {
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
@@ -175,7 +175,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -184,12 +184,12 @@ const buildConfig = ({ inputPath, css }) => {
                     },
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         use: [
                             {
                                 loader: 'image-webp-loader',
                                 options: {
-                                    outputPath: path_1.default.resolve(inputPath, "./ui"),
+                                    outputPath: path_1.default.resolve(inputPath, "./"),
                                     name: '[path][name].[ext]'
                                 }
                             }
