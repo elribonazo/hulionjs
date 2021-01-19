@@ -73,8 +73,8 @@ export async function loadMiddlewares() {
             const webpackConfigBuilder = buildConfig({
                 inputPath: process.cwd() + "/example/server"
             });
-
-            const webpackConfig: any = webpackConfigBuilder(ENV);
+            const webpackEnv = ENV === 'production' ? 'production' : 'development';
+            const webpackConfig: any = webpackConfigBuilder(webpackEnv);
             const webpackCompiler = webpack(webpackConfig);
 
             server.use(
