@@ -94,7 +94,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                         use: [{
                                 loader: 'ts-loader',
                                 options: {
-                                    configFile: "tsconfig.webpack.json"
+                                    configFile: path_1.default.resolve(inputPath, "./tsconfig.react.json")
                                 }
                             }],
                         exclude: /node_modules/,
