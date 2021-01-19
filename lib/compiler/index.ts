@@ -30,7 +30,7 @@ interface buildConfigType {
 
 interface CompilerCompileType {
     config: any,
-    fromPlugin: boolean,
+    fromPlugin?: boolean,
     method: any
 }
 

@@ -54,7 +54,6 @@ export async function start() {
                     config: buildConfig({
                         inputPath: WEBROOT
                     })(ENV as any),
-                    fromPlugin: true,
                     method: 'build'
                 });
 

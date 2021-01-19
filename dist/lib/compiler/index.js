@@ -38,7 +38,7 @@ const buildConfig = ({ inputPath, css }) => {
         const cssFiles = (css === null || css === void 0 ? void 0 : css.includes) || [];
         const webpackIsomorphicToolsPlugin = new plugin_1.default(exports.isomorphicConfig);
         const webpackConfig = {
-            context: path_1.default.resolve(inputPath, "./"),
+            context: path_1.default.resolve(inputPath, "./ui"),
             mode: envType,
             watch: IS_DEV,
             devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
