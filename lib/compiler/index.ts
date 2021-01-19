@@ -25,7 +25,8 @@ interface buildConfigCssType {
 
 interface buildConfigType {
     inputPath: string,
-    css?: buildConfigCssType
+    css?: buildConfigCssType,
+    extendWebpackConfig?: any
 }
 
 interface CompilerCompileType {
@@ -48,7 +49,8 @@ export const isomorphicConfig = {
 
 export const buildConfig = ({
     inputPath,
-    css
+    css,
+    extendWebpackConfig = {}
 }: buildConfigType) => {
 
     return (envType: "production" | "development" | "none" | undefined) => {
@@ -299,7 +301,8 @@ export const buildConfig = ({
                     'remote-component.config.js': path.resolve(__dirname, './remoteConfig.js')
                 }
             },
-            stats: 'none'
+            stats: 'none',
+            ...extendWebpackConfig
         }
 
         return webpackConfig;

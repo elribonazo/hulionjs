@@ -48,7 +48,6 @@ const buildConfig = ({ inputPath, css }) => {
             };
         console.log(chalk_1.default.blue('✓ Client webpack entry point is( ' + JSON.stringify(entry)));
         const webpackConfig = {
-            context: path_1.default.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
             devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
@@ -83,7 +82,7 @@ const buildConfig = ({ inputPath, css }) => {
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -91,7 +90,7 @@ const buildConfig = ({ inputPath, css }) => {
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, './ui'),
+                        include: path_1.default.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
@@ -111,7 +110,6 @@ const buildConfig = ({ inputPath, css }) => {
                                 '@babel/preset-react'
                             ],
                             plugins: [
-                                '@babel/plugin-syntax-jsx',
                                 '@babel/plugin-transform-runtime',
                                 ['@babel/plugin-proposal-decorators', { legacy: true }],
                                 '@babel/plugin-proposal-object-rest-spread',
@@ -126,7 +124,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path_1.default.resolve(inputPath, './ui'),
+                            path_1.default.resolve(inputPath, './'),
                             ...cssFiles
                         ],
                         use: [
@@ -152,7 +150,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: /\.(css)$/,
                         include: [
-                            path_1.default.resolve(inputPath, './ui'),
+                            path_1.default.resolve(inputPath, './'),
                             ...cssFiles
                         ],
                         use: [
@@ -177,7 +175,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path_1.default.resolve(inputPath, './'),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
