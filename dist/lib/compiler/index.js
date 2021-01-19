@@ -90,37 +90,14 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     },
                     // Babel
                     {
-                        test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, './ui'),
-                        loader: 'babel-loader',
-                        exclude: [
-                            path_1.default.resolve(inputPath, './node_modules')
-                        ],
-                        options: {
-                            cacheDirectory: IS_DEV,
-                            compact: IS_PROD,
-                            presets: [
-                                [
-                                    '@babel/preset-env',
-                                    {
-                                        targets: {
-                                            browsers: ['>1%', 'ie 11', 'not op_mini all']
-                                        }
-                                    }
-                                ],
-                                '@babel/preset-react'
-                            ],
-                            plugins: [
-                                '@babel/plugin-transform-runtime',
-                                ['@babel/plugin-proposal-decorators', { legacy: true }],
-                                '@babel/plugin-proposal-object-rest-spread',
-                                '@babel/plugin-transform-spread',
-                                '@babel/plugin-proposal-class-properties',
-                                '@babel/plugin-proposal-optional-chaining',
-                                '@babel/plugin-syntax-dynamic-import',
-                                [babel_1.default, { rootPath: inputPath }]
-                            ]
-                        }
+                        test: /\.ts$/,
+                        use: [{
+                                loader: 'ts-loader',
+                                options: {
+                                    configFile: "tsconfig.webpack.json"
+                                }
+                            }],
+                        exclude: /node_modules/,
                     },
                     {
                         test: /\.(scss)$/,

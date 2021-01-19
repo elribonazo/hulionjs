@@ -1,6 +1,6 @@
 {
   "name": "hulionjs",
-  "version": "0.0.38",
+  "version": "0.0.40",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",
@@ -138,6 +138,7 @@
     "style-loader": "^1.0.0",
     "tailwindcss": "^1.4.6",
     "terser-webpack-plugin": "^3.0.6",
+    "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
     "uglifyjs-webpack-plugin": "^2.2.0",

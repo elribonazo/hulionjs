@@ -2,11 +2,6 @@
     "compilerOptions": {
         "jsx": "react",
         "module": "commonjs",
-
-
-
-
-        
         "allowJs": true,
         "baseUrl": "./src",
         "outDir": "dist",
@@ -19,7 +14,7 @@
         "strict": true,
         "declaration": false,
         "sourceMap": true,
-        "experimentalDecorators":true
+        "experimentalDecorators": true
     },
     "exclude": [
         "./example",
