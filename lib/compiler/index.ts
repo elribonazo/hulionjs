@@ -18,6 +18,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import PreloadWebpackPlugin from '@furic-zhao/preload-webpack-plugin';
 import WebpackIsomorphicToolsPlugin from 'webpack-isomorphic-tools/plugin';
 
+import { getAppEnv } from './env';
 
 interface buildConfigCssType {
     includes: Array<string>
@@ -34,6 +35,9 @@ interface CompilerCompileType {
     fromPlugin?: boolean,
     method: any
 }
+
+
+const env = getAppEnv();
 
 export const isomorphicConfig = {
     webpack_assets_file_path: path.resolve(
@@ -258,10 +262,7 @@ export const buildConfig = ({
                 },
             plugins: [
                 IS_PROD && new CleanWebpackPlugin(),
-                /**
-                 * BUG - no env settings for webpack
-                 */
-                //new webpack.DefinePlugin(env.forWebpackDefinePlugin),
+                new webpack.DefinePlugin(env.forWebpackDefinePlugin),
                 new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
                 new LodashModuleReplacementPlugin(),
                 IS_DEV && new webpack.HotModuleReplacementPlugin(),

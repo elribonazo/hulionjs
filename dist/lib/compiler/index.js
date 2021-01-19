@@ -23,6 +23,8 @@ const clean_webpack_plugin_1 = require("clean-webpack-plugin");
 const html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
 const preload_webpack_plugin_1 = __importDefault(require("@furic-zhao/preload-webpack-plugin"));
 const plugin_1 = __importDefault(require("webpack-isomorphic-tools/plugin"));
+const env_1 = require("./env");
+const env = env_1.getAppEnv();
 exports.isomorphicConfig = {
     webpack_assets_file_path: path_1.default.resolve(process.cwd(), './build/webpack-assets.json'),
     assets: {
@@ -234,10 +236,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                 },
             plugins: [
                 IS_PROD && new clean_webpack_plugin_1.CleanWebpackPlugin(),
-                /**
-                 * BUG - no env settings for webpack
-                 */
-                //new webpack.DefinePlugin(env.forWebpackDefinePlugin),
+                new webpack_1.default.DefinePlugin(env.forWebpackDefinePlugin),
                 new webpack_1.default.IgnorePlugin(/^\.\/locale$/, /moment$/),
                 new lodash_webpack_plugin_1.default(),
                 IS_DEV && new webpack_1.default.HotModuleReplacementPlugin(),
