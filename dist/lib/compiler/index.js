@@ -243,7 +243,7 @@ const buildConfig = ({ inputPath, css }) => {
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
                         return require('fs')
-                            .readFileSync(path_1.default.resolve(inputPath, "./ui/index.html"))
+                            .readFileSync(path_1.default.resolve(__dirname, "../../../index.html"))
                             .toString()
                             .replace(/\[\[SMW_WEBPACK_HEAD\]\]/gim, htmlWebpackPlugin.tags.headTags);
                     }
