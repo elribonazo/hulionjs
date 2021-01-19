@@ -81,7 +81,7 @@ const buildConfig = ({ inputPath, css }) => {
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path_1.default.resolve(inputPath, './'),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -89,7 +89,7 @@ const buildConfig = ({ inputPath, css }) => {
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, './'),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         loader: 'babel-loader',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),

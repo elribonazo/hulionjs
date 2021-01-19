@@ -60,7 +60,7 @@ export const buildConfig = ({
         );
 
         const webpackConfig: any = {
-            context: path.resolve(inputPath, "./ui"),
+            context: path.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
             devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
