@@ -51,9 +51,7 @@ export async function start() {
                 }
 
                 await compiler.compile({
-                    config: buildConfig({
-                        inputPath: WEBROOT
-                    })(ENV as any),
+                    config: buildConfig({ inputPath: WEBROOT })(ENV as any),
                     method: 'build'
                 });
 

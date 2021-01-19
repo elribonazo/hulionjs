@@ -67,11 +67,11 @@ export const buildConfig = ({
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path.resolve(inputPath, './ui/browser.ts')
+                    path.resolve(inputPath, './ui/browser.js')
                 ]
                 : {
                     polyfills: path.resolve(inputPath, './ui/polyfills.ts'),
-                    main: path.resolve(inputPath, './ui/browser.ts')
+                    main: path.resolve(inputPath, './ui/browser.js')
                 },
             output: IS_DEV
                 ? {

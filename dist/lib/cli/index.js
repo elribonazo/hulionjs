@@ -50,7 +50,6 @@ async function start() {
                     config: compiler_1.buildConfig({
                         inputPath: WEBROOT
                     })(ENV),
-                    fromPlugin: true,
                     method: 'build'
                 });
                 break;
