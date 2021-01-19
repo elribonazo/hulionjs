@@ -69,7 +69,6 @@ export const buildConfig = ({
             };
         console.log(chalk.blue('✓ Client webpack entry point is( ' + JSON.stringify(entry)));
         const webpackConfig: any = {
-            context: path.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
             devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
@@ -104,7 +103,7 @@ export const buildConfig = ({
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -112,7 +111,7 @@ export const buildConfig = ({
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
@@ -132,7 +131,6 @@ export const buildConfig = ({
                                 '@babel/preset-react'
                             ],
                             plugins: [
-                                '@babel/plugin-syntax-jsx',
                                 '@babel/plugin-transform-runtime',
                                 ['@babel/plugin-proposal-decorators', { legacy: true }],
                                 '@babel/plugin-proposal-object-rest-spread',
@@ -147,7 +145,7 @@ export const buildConfig = ({
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path.resolve(inputPath, './ui'),
+                            path.resolve(inputPath, './'),
                             ...cssFiles
                         ],
                         use: [
@@ -173,7 +171,7 @@ export const buildConfig = ({
                     {
                         test: /\.(css)$/,
                         include: [
-                            path.resolve(inputPath, './ui'),
+                            path.resolve(inputPath, './'),
                             ...cssFiles
                         ],
                         use: [
@@ -198,7 +196,7 @@ export const buildConfig = ({
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path.resolve(inputPath, './'),
+                        include: path.resolve(inputPath, './ui'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',

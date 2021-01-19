@@ -37,20 +37,22 @@ const buildConfig = ({ inputPath, css }) => {
         const IS_PROD = envType === 'production';
         const cssFiles = (css === null || css === void 0 ? void 0 : css.includes) || [];
         const webpackIsomorphicToolsPlugin = new plugin_1.default(exports.isomorphicConfig);
+        const entry = IS_DEV
+            ? [
+                'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
+                path_1.default.resolve(inputPath, './ui/browser.js')
+            ]
+            : {
+                polyfills: path_1.default.resolve(__dirname, '../ui/polyfills.ts'),
+                main: path_1.default.resolve(inputPath, './ui/browser.js')
+            };
+        console.log(chalk_1.default.blue('✓ Client webpack entry point is( ' + JSON.stringify(entry)));
         const webpackConfig = {
             context: path_1.default.resolve(inputPath, "./"),
             mode: envType,
             watch: IS_DEV,
             devtool: IS_DEV ? 'cheap-module-source-map' : 'source-map',
-            entry: IS_DEV
-                ? [
-                    'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path_1.default.resolve(inputPath, './ui/browser.js')
-                ]
-                : {
-                    polyfills: path_1.default.resolve(__dirname, '../ui/polyfills.ts'),
-                    main: path_1.default.resolve(inputPath, './ui/browser.js')
-                },
+            entry: entry,
             output: IS_DEV
                 ? {
                     path: path_1.default.resolve(inputPath, './build'),
