@@ -70,7 +70,6 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
             },
             module: {
                 rules: [
-                    // ESLint
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
                         enforce: 'pre',
@@ -84,7 +83,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                         ],
                         include: path_1.default.resolve(inputPath, './'),
                         exclude: [
-                            path_1.default.resolve(inputPath, "./node_modules/mongoose"),
+                            path_1.default.resolve(inputPath, "./node_modules"),
                         ]
                     },
                     // Babel
@@ -93,7 +92,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                         include: path_1.default.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
-                            path_1.default.resolve(inputPath, "./node_modules/mongoose"),
+                            path_1.default.resolve(inputPath, "./node_modules"),
                         ],
                         options: {
                             cacheDirectory: IS_DEV,
@@ -243,7 +242,7 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
                         return require('fs')
-                            .readFileSync(path_1.default.resolve(__dirname, "../../../index.html"))
+                            .readFileSync("../../../index.html")
                             .toString()
                             .replace(/\[\[SMW_WEBPACK_HEAD\]\]/gim, htmlWebpackPlugin.tags.headTags);
                     }

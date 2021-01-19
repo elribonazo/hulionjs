@@ -106,7 +106,6 @@ export const buildConfig = ({
                         ],
                         include: path.resolve(inputPath, './'),
                         exclude: [
-                            path.resolve(inputPath, "./node_modules"),
                         ]
                     },
                     // Babel
@@ -115,7 +114,6 @@ export const buildConfig = ({
                         include: path.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
-                            path.resolve(inputPath, "./node_modules"),
                         ],
                         options: {
                             cacheDirectory: IS_DEV,
@@ -146,7 +144,7 @@ export const buildConfig = ({
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path.resolve(inputPath, './'),
+                            path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -172,7 +170,7 @@ export const buildConfig = ({
                     {
                         test: /\.(css)$/,
                         include: [
-                            path.resolve(inputPath, './'),
+                            path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -265,11 +263,27 @@ export const buildConfig = ({
                     inject: false,
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
-                        return require('fs')
-                            .readFileSync("../../../index.html")
-                            .toString()
+                        return `<!doctype html>
+                        <html lang="en" [[HULIONJS_HTML_ATTRS]]>
+                        <head>
+                            <meta charset="utf-8">
+                            <base href="/">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+                            [[HULIONJS_HEAD]]
+                            [[HULIONJS_WEBPACK_HEAD]]
+                            <style>
+                                #root {
+                                    background-color: white !important;
+                                }
+                            </style>
+                        </head>
+                        <body[[HULIONJS_BODY_ATTRS]]>
+                            <div id="root">[[HULIONJS_MARKUP]]</div>
+                            [[HULIONJS_SCRIPTS]]
+                            </body>
+                        </html>`
                             .replace(
-                                /\[\[SMW_WEBPACK_HEAD\]\]/gim,
+                                /\[\[HULIONJS_WEBPACK_HEAD\]\]/gim,
                                 htmlWebpackPlugin.tags.headTags
                             );
                     }
