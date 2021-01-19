@@ -31,7 +31,7 @@ exports.isomorphicConfig = {
         }
     }
 };
-const buildConfig = ({ inputPath, css }) => {
+const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
     return (envType) => {
         const IS_DEV = envType !== 'production';
         const IS_PROD = envType === 'production';
@@ -277,7 +277,8 @@ const buildConfig = ({ inputPath, css }) => {
                     'remote-component.config.js': path_1.default.resolve(__dirname, './remoteConfig.js')
                 }
             },
-            stats: 'none'
+            stats: 'none',
+            ...extendWebpackConfig
         };
         return webpackConfig;
     };

@@ -93,7 +93,6 @@ export const buildConfig = ({
             },
             module: {
                 rules: [
-                    // ESLint
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
                         enforce: 'pre',
@@ -107,7 +106,7 @@ export const buildConfig = ({
                         ],
                         include: path.resolve(inputPath, './'),
                         exclude: [
-                            path.resolve(inputPath, "./node_modules/mongoose"),
+                            path.resolve(inputPath, "./node_modules"),
                         ]
                     },
                     // Babel
@@ -116,7 +115,7 @@ export const buildConfig = ({
                         include: path.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
-                            path.resolve(inputPath, "./node_modules/mongoose"),
+                            path.resolve(inputPath, "./node_modules"),
                         ],
                         options: {
                             cacheDirectory: IS_DEV,
@@ -267,7 +266,7 @@ export const buildConfig = ({
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
                         return require('fs')
-                            .readFileSync(path.resolve(__dirname, "../../../index.html"))
+                            .readFileSync("../../../index.html")
                             .toString()
                             .replace(
                                 /\[\[SMW_WEBPACK_HEAD\]\]/gim,
