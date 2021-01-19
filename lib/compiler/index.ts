@@ -70,7 +70,7 @@ export const buildConfig = ({
                     path.resolve(inputPath, './ui/browser.js')
                 ]
                 : {
-                    polyfills: path.resolve(inputPath, './ui/polyfills.ts'),
+                    polyfills: path.resolve(__dirname, '../ui/polyfills.ts'),
                     main: path.resolve(inputPath, './ui/browser.js')
                 },
             output: IS_DEV
