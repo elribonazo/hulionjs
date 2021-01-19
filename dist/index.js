@@ -19,10 +19,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.I = exports.Cli = exports.ServerAnnotations = exports.Server = exports.Compiler = void 0;
+exports.AssetUtils = exports.BrowserUtils = exports.I = exports.Cli = exports.ServerAnnotations = exports.Server = exports.Compiler = void 0;
 exports.Compiler = __importStar(require("./lib/compiler/index"));
 exports.Server = __importStar(require("./lib/server"));
 exports.ServerAnnotations = __importStar(require("./lib/server/annotations"));
 exports.Cli = __importStar(require("./lib/cli"));
 exports.I = __importStar(require("./lib/interfaces"));
+exports.BrowserUtils = __importStar(require("./lib/ui/utils/browser"));
+exports.AssetUtils = __importStar(require("./lib/ui/utils/assetUtils"));
 //# sourceMappingURL=index.js.map

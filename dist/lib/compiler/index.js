@@ -48,7 +48,7 @@ const buildConfig = ({ inputPath, css }) => {
                     path_1.default.resolve(inputPath, './ui/browser.js')
                 ]
                 : {
-                    polyfills: path_1.default.resolve(inputPath, './ui/polyfills.ts'),
+                    polyfills: path_1.default.resolve(__dirname, '../ui/polyfills.ts'),
                     main: path_1.default.resolve(inputPath, './ui/browser.js')
                 },
             output: IS_DEV
