@@ -204,19 +204,19 @@ export const buildConfig = ({
                             esModule: false
                         }
                     },
-                    {
-                        test: webpackIsomorphicToolsPlugin.regularExpression('images'),
-                        include: path.resolve(inputPath, './'),
-                        use: [
-                            {
-                                loader: 'image-webp-loader',
-                                options: {
-                                    outputPath: path.resolve(inputPath, "./"),
-                                    name: '[path][name].[ext]'
-                                }
-                            }
-                        ]
-                    },
+                    // {
+                    //     test: webpackIsomorphicToolsPlugin.regularExpression('images'),
+                    //     include: path.resolve(inputPath, './'),
+                    //     use: [
+                    //         {
+                    //             loader: 'image-webp-loader',
+                    //             options: {
+                    //                 outputPath: path.resolve(inputPath, "./"),
+                    //                 name: '[path][name].[ext]'
+                    //             }
+                    //         }
+                    //     ]
+                    // },
                     {
                         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                         use: [
