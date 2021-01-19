@@ -266,7 +266,7 @@ export const buildConfig = ({
                     file: 'main.html',
                     templateContent: ({ htmlWebpackPlugin }) => {
                         return require('fs')
-                            .readFileSync(path.resolve(__dirname, "./index.html"))
+                            .readFileSync(path.resolve(__dirname, "../../../index.html"))
                             .toString()
                             .replace(
                                 /\[\[SMW_WEBPACK_HEAD\]\]/gim,
