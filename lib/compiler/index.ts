@@ -86,6 +86,9 @@ export const buildConfig = ({
                     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
                     publicPath: '/'
                 },
+            externals: {
+                react: 'react'
+            },
             module: {
                 rules: [
                     // ESLint
@@ -100,10 +103,45 @@ export const buildConfig = ({
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path.resolve(inputPath, "./"),
+                        include: path.resolve(inputPath, "./ui"),
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
                         ]
+                    },
+                    // Babel
+                    {
+                        test: /\.(js|jsx|ts|tsx)$/,
+                        include: path.resolve(inputPath, "./ui"),
+                        loader: 'babel-loader',
+                        exclude: [
+                            path.resolve(inputPath, "./node_modules/mongoose"),
+                        ],
+                        options: {
+                            cacheDirectory: IS_DEV,
+                            compact: IS_PROD,
+                            presets: [
+                                [
+                                    '@babel/preset-env',
+                                    {
+                                        targets: {
+                                            browsers: ['>1%', 'ie 11', 'not op_mini all']
+                                        }
+                                    }
+                                ],
+                                '@babel/preset-react'
+                            ],
+                            plugins: [
+                                '@babel/plugin-syntax-jsx',
+                                '@babel/plugin-transform-runtime',
+                                ['@babel/plugin-proposal-decorators', { legacy: true }],
+                                '@babel/plugin-proposal-object-rest-spread',
+                                '@babel/plugin-transform-spread',
+                                '@babel/plugin-proposal-class-properties',
+                                '@babel/plugin-proposal-optional-chaining',
+                                '@babel/plugin-syntax-dynamic-import',
+                                [LazyPlugin, { rootPath: inputPath }]
+                            ]
+                        }
                     },
                     {
                         test: /\.(scss)$/,
@@ -191,19 +229,7 @@ export const buildConfig = ({
                             }
                         ]
                     },
-                    // Babel
-                    {
-                        test: /\.(js|jsx|ts|tsx)$/,
-                        include: path.resolve(inputPath, "./"),
-                        loader: 'babel-loader',
-                        exclude: [
-                            path.resolve(inputPath, "./node_modules/mongoose"),
-                        ],
-                        options: {
-                            cacheDirectory: IS_DEV,
-                            compact: IS_PROD
-                        }
-                    }
+
                 ].filter(Boolean)
             },
             optimization: IS_DEV
@@ -268,6 +294,7 @@ export const buildConfig = ({
                 tls: 'empty'
             },
             resolve: {
+                extensions: ['.jsx', '.js', 'ts', 'tsx'],
                 alias: {
                     //This are the packages that the plugins can used  
                     'remote-component.config.js': path.resolve(__dirname, './remoteConfig.js')

@@ -94,6 +94,7 @@ export async function loadMiddlewares() {
                 })
             );
 
+
             server.engine('html', Engine);
             server.set('view engine', 'html');
             server.set('views', path.resolve(process.cwd(), './build'));
