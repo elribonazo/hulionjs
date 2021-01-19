@@ -67,21 +67,21 @@ export const buildConfig = ({
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    './ui/browser.ts'
+                    path.resolve(inputPath, './ui/browser.ts')
                 ]
                 : {
-                    polyfills: './ui/polyfills.ts',
-                    main: './ui/browser.ts'
+                    polyfills: path.resolve(inputPath, './ui/polyfills.ts'),
+                    main: path.resolve(inputPath, './ui/browser.ts')
                 },
             output: IS_DEV
                 ? {
-                    path: './build',
+                    path: path.resolve(inputPath, './build'),
                     filename: '[name].bundle.js',
                     chunkFilename: '[name].chunk.js',
                     publicPath: '/'
                 }
                 : {
-                    path: './build',
+                    path: path.resolve(inputPath, './build'),
                     filename: 'static/js/[name].[chunkhash:8].js',
                     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
                     publicPath: '/'
@@ -103,7 +103,7 @@ export const buildConfig = ({
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: './',
+                        include: path.resolve(inputPath, './ui'),
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -111,7 +111,7 @@ export const buildConfig = ({
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: './',
+                        include: path.resolve(inputPath, './ui'),
                         loader: 'babel-loader',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
@@ -146,7 +146,7 @@ export const buildConfig = ({
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path.resolve(inputPath, "./"),
+                            path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -172,7 +172,7 @@ export const buildConfig = ({
                     {
                         test: /\.(css)$/,
                         include: [
-                            path.resolve(inputPath, "./"),
+                            path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -197,7 +197,7 @@ export const buildConfig = ({
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path.resolve(inputPath, "./"),
+                        include: path.resolve(inputPath, './ui'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -206,12 +206,12 @@ export const buildConfig = ({
                     },
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
-                        include: path.resolve(inputPath, "./build"),
+                        include: path.resolve(inputPath, './ui'),
                         use: [
                             {
                                 loader: 'image-webp-loader',
                                 options: {
-                                    outputPath: path.resolve(inputPath, "./build"),
+                                    outputPath: path.resolve(inputPath, "./ui"),
                                     name: '[path][name].[ext]'
                                 }
                             }
