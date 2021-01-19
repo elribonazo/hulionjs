@@ -45,21 +45,21 @@ const buildConfig = ({ inputPath, css }) => {
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path_1.default.resolve(inputPath, './ui/browser.ts')
+                    './ui/browser.ts'
                 ]
                 : {
-                    polyfills: path_1.default.resolve(inputPath, './ui/polyfills.ts'),
-                    main: path_1.default.resolve(inputPath, './ui/browser.ts')
+                    polyfills: './ui/polyfills.ts',
+                    main: './ui/browser.ts'
                 },
             output: IS_DEV
                 ? {
-                    path: path_1.default.resolve(inputPath, './build'),
+                    path: './build',
                     filename: '[name].bundle.js',
                     chunkFilename: '[name].chunk.js',
                     publicPath: '/'
                 }
                 : {
-                    path: path_1.default.resolve(inputPath, './build'),
+                    path: './build',
                     filename: 'static/js/[name].[chunkhash:8].js',
                     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
                     publicPath: '/'
@@ -81,7 +81,7 @@ const buildConfig = ({ inputPath, css }) => {
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path_1.default.resolve(inputPath, "./ui"),
+                        include: './',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -89,7 +89,7 @@ const buildConfig = ({ inputPath, css }) => {
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, "./ui"),
+                        include: './',
                         loader: 'babel-loader',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
