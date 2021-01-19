@@ -45,21 +45,21 @@ const buildConfig = ({ inputPath, css }) => {
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    './ui/browser.ts'
+                    path_1.default.resolve(inputPath, './ui/browser.ts')
                 ]
                 : {
-                    polyfills: './ui/polyfills.ts',
-                    main: './ui/browser.ts'
+                    polyfills: path_1.default.resolve(inputPath, './ui/polyfills.ts'),
+                    main: path_1.default.resolve(inputPath, './ui/browser.ts')
                 },
             output: IS_DEV
                 ? {
-                    path: './build',
+                    path: path_1.default.resolve(inputPath, './build'),
                     filename: '[name].bundle.js',
                     chunkFilename: '[name].chunk.js',
                     publicPath: '/'
                 }
                 : {
-                    path: './build',
+                    path: path_1.default.resolve(inputPath, './build'),
                     filename: 'static/js/[name].[chunkhash:8].js',
                     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
                     publicPath: '/'
@@ -81,7 +81,7 @@ const buildConfig = ({ inputPath, css }) => {
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: './',
+                        include: path_1.default.resolve(inputPath, './ui'),
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -89,7 +89,7 @@ const buildConfig = ({ inputPath, css }) => {
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: './',
+                        include: path_1.default.resolve(inputPath, './ui'),
                         loader: 'babel-loader',
                         exclude: [
                             path_1.default.resolve(inputPath, "./node_modules/mongoose"),
@@ -124,7 +124,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: /\.(scss)$/,
                         include: [
-                            path_1.default.resolve(inputPath, "./"),
+                            path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -150,7 +150,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: /\.(css)$/,
                         include: [
-                            path_1.default.resolve(inputPath, "./"),
+                            path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
                         use: [
@@ -175,7 +175,7 @@ const buildConfig = ({ inputPath, css }) => {
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path_1.default.resolve(inputPath, "./"),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -184,12 +184,12 @@ const buildConfig = ({ inputPath, css }) => {
                     },
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
-                        include: path_1.default.resolve(inputPath, "./build"),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         use: [
                             {
                                 loader: 'image-webp-loader',
                                 options: {
-                                    outputPath: path_1.default.resolve(inputPath, "./build"),
+                                    outputPath: path_1.default.resolve(inputPath, "./ui"),
                                     name: '[path][name].[ext]'
                                 }
                             }

@@ -103,7 +103,7 @@ export const buildConfig = ({
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -111,7 +111,7 @@ export const buildConfig = ({
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         loader: 'babel-loader',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
@@ -197,7 +197,7 @@ export const buildConfig = ({
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -206,12 +206,12 @@ export const buildConfig = ({
                     },
                     {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
-                        include: path.resolve(inputPath, './ui'),
+                        include: path.resolve(inputPath, './'),
                         use: [
                             {
                                 loader: 'image-webp-loader',
                                 options: {
-                                    outputPath: path.resolve(inputPath, "./ui"),
+                                    outputPath: path.resolve(inputPath, "./"),
                                     name: '[path][name].[ext]'
                                 }
                             }
