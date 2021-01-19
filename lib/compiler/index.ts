@@ -67,21 +67,21 @@ export const buildConfig = ({
             entry: IS_DEV
                 ? [
                     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&noinfo=true',
-                    path.resolve(inputPath, './ui/browser.ts')
+                    './ui/browser.ts'
                 ]
                 : {
-                    polyfills: path.resolve(inputPath, './ui/polyfills.ts'),
-                    main: path.resolve(inputPath, './ui/browser.ts')
+                    polyfills: './ui/polyfills.ts',
+                    main: './ui/browser.ts'
                 },
             output: IS_DEV
                 ? {
-                    path: path.resolve(inputPath, './build'),
+                    path: './build',
                     filename: '[name].bundle.js',
                     chunkFilename: '[name].chunk.js',
                     publicPath: '/'
                 }
                 : {
-                    path: path.resolve(inputPath, './build'),
+                    path: './build',
                     filename: 'static/js/[name].[chunkhash:8].js',
                     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
                     publicPath: '/'
@@ -103,7 +103,7 @@ export const buildConfig = ({
                                 loader: 'eslint-loader'
                             }
                         ],
-                        include: path.resolve(inputPath, "./ui"),
+                        include: './',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
                         ]
@@ -111,7 +111,7 @@ export const buildConfig = ({
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path.resolve(inputPath, "./ui"),
+                        include: './',
                         loader: 'babel-loader',
                         exclude: [
                             path.resolve(inputPath, "./node_modules/mongoose"),
