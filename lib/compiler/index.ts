@@ -106,7 +106,8 @@ export const buildConfig = ({
                         ],
                         include: path.resolve(inputPath, './'),
                         exclude: [
-                        ]
+                            path.resolve(inputPath, './node_modules')
+                        ],
                     },
                     // Babel
                     {
@@ -148,6 +149,9 @@ export const buildConfig = ({
                             path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
+                        exclude: [
+                            path.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             MiniCssExtractPlugin.loader,
                             'css-loader',
@@ -174,6 +178,9 @@ export const buildConfig = ({
                             path.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
+                        exclude: [
+                            path.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             MiniCssExtractPlugin.loader,
                             'css-loader',
@@ -197,6 +204,9 @@ export const buildConfig = ({
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
                         include: path.resolve(inputPath, './ui'),
+                        exclude: [
+                            path.resolve(inputPath, './node_modules'),
+                        ],
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -218,6 +228,9 @@ export const buildConfig = ({
                     // },
                     {
                         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                        exclude: [
+                            path.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             {
                                 loader: 'file-loader',
@@ -306,7 +319,8 @@ export const buildConfig = ({
                 dgram: 'empty',
                 fs: 'empty',
                 net: 'empty',
-                tls: 'empty'
+                tls: 'empty',
+                child_process: "empty"
             },
             resolve: {
                 extensions: ['.jsx', '.js', 'ts', 'tsx'],

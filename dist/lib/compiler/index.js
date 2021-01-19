@@ -82,14 +82,18 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                             }
                         ],
                         include: path_1.default.resolve(inputPath, './'),
-                        exclude: []
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules')
+                        ],
                     },
                     // Babel
                     {
                         test: /\.(js|jsx|ts|tsx)$/,
-                        include: path_1.default.resolve(inputPath, './'),
+                        include: path_1.default.resolve(inputPath, './ui'),
                         loader: 'babel-loader',
-                        exclude: [],
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules')
+                        ],
                         options: {
                             cacheDirectory: IS_DEV,
                             compact: IS_PROD,
@@ -122,6 +126,9 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                             path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             mini_css_extract_plugin_1.default.loader,
                             'css-loader',
@@ -148,6 +155,9 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                             path_1.default.resolve(inputPath, './ui'),
                             ...cssFiles
                         ],
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             mini_css_extract_plugin_1.default.loader,
                             'css-loader',
@@ -171,6 +181,9 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                         test: webpackIsomorphicToolsPlugin.regularExpression('images'),
                         loader: 'file-loader',
                         include: path_1.default.resolve(inputPath, './ui'),
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules'),
+                        ],
                         options: {
                             name: '[path][name].[ext]',
                             context: 'src',
@@ -192,6 +205,9 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                     // },
                     {
                         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                        exclude: [
+                            path_1.default.resolve(inputPath, './node_modules'),
+                        ],
                         use: [
                             {
                                 loader: 'file-loader',
@@ -279,7 +295,8 @@ const buildConfig = ({ inputPath, css, extendWebpackConfig = {} }) => {
                 dgram: 'empty',
                 fs: 'empty',
                 net: 'empty',
-                tls: 'empty'
+                tls: 'empty',
+                child_process: "empty"
             },
             resolve: {
                 extensions: ['.jsx', '.js', 'ts', 'tsx'],
